@@ -1,10 +1,11 @@
 import "react-native-gesture-handler";
 import { Navigator } from "./src/presentation/navigator/StackNavigatior";
-import { NavigationContainer } from "@react-navigation/native";
+import { ThemeContextProvider } from "./src/presentation/context/ThemeContext";
+
 export default function App() {
   return (
-    <NavigationContainer>
+    <ThemeContextProvider>
       <Navigator />
-    </NavigationContainer>
+    </ThemeContextProvider>
   );
 }
