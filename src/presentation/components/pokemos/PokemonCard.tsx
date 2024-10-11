@@ -1,22 +1,42 @@
 import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, Pressable, StyleSheet, View } from "react-native";
 import { Pokemon } from "../../../domain/entities/pokemon";
 import { Card, Text } from "react-native-paper";
 import { FadeInImage } from "../ui/FadeInImage";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParams } from "../../navigator/StackNavigatior";
 
 interface Props {
-  pokemon: Pokemon;
+  pokemon: Pokemon; // Recibes un objeto de tipo Pokemon
 }
 
 export const PokemonCard = ({ pokemon }: Props) => {
+
+  // useNavigation te permite obtener el objeto `navigation` para navegar entre pantallas
+  // Especificas el tipo de las rutas que tienes en tu `RootStackParams` para mayor seguridad de tipos.
+  const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
   return (
-    <>
+    // Pressable es un componente que se puede presionar. Aquí estás diciendo que cuando lo presionen,
+    // se navegue a la pantalla 'PokemonScreen', pasando el ID del Pokémon como parámetro.
+    <Pressable
+      style={{ flex: 1 }}
+      onPress={() => {
+        // Aquí usas el método `navigate` para ir a la pantalla 'PokemonScreen'.
+        // 'PokemonScreen' es una pantalla definida en tu sistema de navegación,
+        // y le pasas el parámetro pokemonId con el ID del Pokémon seleccionado.
+        navigation.navigate('PokemonScreen', { pokemonId: pokemon.id });
+      }}
+    >
+      {/* Card es un contenedor estilizado, en este caso para mostrar los datos del Pokémon */}
       <Card style={styles.cardContainer}>
+        {/* Muestras el nombre del Pokémon y su ID */}
         <Text style={styles.name} variant="bodyLarge" lineBreakMode="middle">
           {pokemon.name}
           {"\n" + pokemon.id}
         </Text>
 
+        {/* Contenedor para la imagen de la Pokeball */}
         <View style={styles.pokeballContainer}>
           <Image
             source={require('../../../assets/pokeball-light.png')}
@@ -24,16 +44,18 @@ export const PokemonCard = ({ pokemon }: Props) => {
           />
         </View>
 
+        {/* Imagen del Pokémon usando FadeInImage*/}
+        <FadeInImage uri={pokemon.avatar} style={styles.pokemonImage} />
 
-        <FadeInImage  uri={ pokemon.avatar } style={styles.pokemonImage} />
-
-        <Text style={[styles.name,{marginTop:35}]}>
-            {pokemon.types[0]}
+        {/* Muestras el tipo principal del Pokémon */}
+        <Text style={[styles.name, { marginTop: 35 }]}>
+          {pokemon.types[0]}
         </Text>
       </Card>
-    </>
+    </Pressable>
   );
 };
+
 
 const styles = StyleSheet.create({
   cardContainer: {
