@@ -36,7 +36,7 @@ export const HomeScreen = () => {
 
 
   return (
-    <View style={globalTheme.globalMargin}>
+    <View style={{ backgroundColor:'#918EF4'}}>
       <PokeballBackground style={styles.imgPosition} />
 
       <FlatList
@@ -47,7 +47,7 @@ export const HomeScreen = () => {
         keyExtractor={(pokemon, index) => `${pokemon.id}-${index}`}
         numColumns={2}
         ListHeaderComponent={() => (
-          <Text style={{ fontSize: 30, fontWeight: "bold" }}>Pokedex</Text>
+          <Text style={{ fontSize: 30, fontWeight: "bold",color:'white' }}>Pokedex</Text>
         )}
         renderItem={({ item }) => <PokemonCard pokemon={item} />}
         onEndReachedThreshold={0.6}

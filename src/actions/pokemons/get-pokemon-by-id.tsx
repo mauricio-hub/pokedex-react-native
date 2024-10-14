@@ -9,7 +9,7 @@ export const getPokemonById = async (id: number): Promise<Pokemon> => {
     
     const { data } = await pokeApi.get<PokeAPIPokemon>(`/pokemon/${id}`);
 
-    const pokemon = await PokemonMapper.pokeApiPokemonToEntity(data);
+    const pokemon = PokemonMapper.pokeApiPokemonToEntity(data);
 
     return pokemon;
 

@@ -60,7 +60,7 @@ export const PokemonCard = ({ pokemon }: Props) => {
 const styles = StyleSheet.create({
   cardContainer: {
     marginHorizontal: 10,
-    backgroundColor: 'grey',
+    backgroundColor: '#306BAC',
     height: 120,
     flex: 0.5,
     marginBottom: 25,
