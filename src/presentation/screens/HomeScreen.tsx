@@ -1,14 +1,19 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Text } from "react-native-paper";
+import { FAB, Text } from "react-native-paper";
 import { getPokemon } from "../../actions/pokemons";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { PokeballBackground } from "../components/ui/PokeballBackground";
 import { FlatList } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PokemonCard } from "../components/pokemos/PokemonCard";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParams } from "../navigator/StackNavigatior";
 
-export const HomeScreen = () => {
+
+interface Props extends StackScreenProps<RootStackParams, "HomeScreen"> {}
+
+export const HomeScreen = ({navigation}:Props) => {
   const { top } = useSafeAreaInsets();
 
   const queryClient = useQueryClient();
@@ -59,6 +64,22 @@ export const HomeScreen = () => {
         onEndReached={() => fetchNextPage()}
         showsVerticalScrollIndicator={false}
       />
+
+    {/* icono de busqueda */}
+    
+     <FAB
+        icon="magnify"
+        style={styles.fab}
+        onPress={() => 
+          navigation.push("SearchScrean")
+        }
+        mode="elevated"
+
+
+      />
+         
+
+
     </View>
   );
 };
@@ -69,4 +90,12 @@ const styles = StyleSheet.create({
     top: -100,
     right: -100,
   },
+  fab: {
+    position: "absolute",
+    margin: 16,
+    right: 20,
+    bottom: 20,
+    backgroundColor: "#bba52ad5",
+  },
+
 });
